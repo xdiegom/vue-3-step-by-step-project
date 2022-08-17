@@ -6,25 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/vue@3"></script>
     <title>Vue 3 - Step by Step</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .text-red {
+        color: red;
+      }
+
+      .text-green {
+        color: green;
+      }
+
+      span {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      {{ greeting }}
+      <span :class="active ? 'text-red' : 'text-green'">{{ greeting }}</span>
+      <button @click="toggle">Click Me</button>
     </div>
 
     <script>
       Vue.createApp({
         data() {
           return {
+            textColor: "text-green",
             greeting: "Hello world",
+            active: false,
           };
         },
-        mounted() {
-          setTimeout(() => {
-            this.greeting = 'What is up?'
-          }, 3000);
-        }
-      }).mount('#app');
+        methods: {
+          toggle() {
+            this.active = !this.active;
+          },
+        },
+      }).mount("#app");
     </script>
   </body>
 </html>
