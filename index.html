@@ -19,6 +19,11 @@
             greeting: "Hello world",
           };
         },
+        mounted() {
+          setTimeout(() => {
+            this.greeting = 'What is up?'
+          }, 3000);
+        }
       }).mount('#app');
     </script>
   </body>
