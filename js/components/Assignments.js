@@ -15,12 +15,22 @@ export default {
 
   data() {
     return {
-      assignments: [
-        { name: "Learn Vue 3", tag: "math",  complete: false, id: 1 },
-        { name: "Read chapter 4", tag: "science", complete: false, id: 2 },
-        { name: "Turn in homework", tag: "reading", complete: false, id: 3 },
-      ],
+      assignments: [],
     };
+  },
+
+  created() {
+    /* "Promises: "when you work asynchrounsly you'll eventually get a response.
+     *  So, a promise is a "promise" to give you a response but doesn't have 
+     *  anything for you, but one day or one second you'll get it." - Jeffrey Way
+     *  
+     * "fetch" is a native browser tool to call API endpoints
+     */
+    fetch("http://localhost:3001/assignments")
+      .then((response) => response.json())
+      .then((assignments) => {
+        this.assignment = assignments;
+      });
   },
 
   computed: {
