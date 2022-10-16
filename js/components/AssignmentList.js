@@ -10,9 +10,23 @@ export default {
           <span> ({{ assignments.length }}) </span>
         </h2>
 
+        <!-- 
+          Another way to work with v-model instead of using "modelValue"
+          and use our own property name, we define it like this in our
+          component property:
+
+          <assignment-tags
+            v-model:currentTag="currenTag" 
+            ...
+          >
+
+          Then, change the name of "modelValue" in your component to the
+          name of the property that you like!.
+        
+        -->
+
         <assignment-tags
-          @change="currentTag = $event"
-          :current-tag="currentTag"
+          v-model="currentTag"
           :initial-tags="assignments.map(a => a.tag)">
         </assignment-tags>
 
