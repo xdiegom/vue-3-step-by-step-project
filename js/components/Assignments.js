@@ -4,11 +4,19 @@ import AssignmentCreate from "./AssignmentCreate.js";
 export default {
   components: { AssignmentList, AssignmentCreate },
   template: `
-      <section class="space-y-6">
-        <assignment-list title="In progress" :assignments="filters.inProgress"></assignment-list>
-        <assignment-list title="Completed" :assignments="filters.completed"></assignment-list>
+      <section class="flex gap-8">
+        <assignment-list title="In progress" :assignments="filters.inProgress">
+          <assignment-create @add="add"></assignment-create>
+        </assignment-list>
 
-        <assignment-create @add="add"></assignment-create>
+        <div v-show="showCompleted">
+          <assignment-list
+            title="Completed"
+            :assignments="filters.completed"
+            can-toggle
+            @toggle="showCompleted = !showCompleted">
+          </assignment-list>
+        </div>
       </section>
 
       `,
@@ -16,20 +24,21 @@ export default {
   data() {
     return {
       assignments: [],
+      showCompleted: true
     };
   },
 
   created() {
     /* "Promises: "when you work asynchrounsly you'll eventually get a response.
-     *  So, a promise is a "promise" to give you a response but doesn't have 
+     *  So, a promise is a "promise" to give you a response but doesn't have
      *  anything for you, but one day or one second you'll get it." - Jeffrey Way
-     *  
+     *
      * "fetch" is a native browser tool to call API endpoints
      */
     fetch("http://localhost:3001/assignments")
       .then((response) => response.json())
       .then((assignments) => {
-        this.assignment = assignments;
+        this.assignments = assignments;
       });
   },
 

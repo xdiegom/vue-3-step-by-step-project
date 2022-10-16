@@ -5,10 +5,14 @@ export default {
   components: { Assignment, AssignmentTags },
   template: `
     <section v-if="assignments.length">
-        <h2 class="font-bold mb-2"> 
-          {{ title }} 
-          <span> ({{ assignments.length }}) </span>
-        </h2>
+        <div class="flex justify-between items-start">
+          <h2 class="font-bold mb-2"> 
+            {{ title }} 
+            <span> ({{ assignments.length }}) </span>
+          </h2>
+
+          <button v-show="canToggle" @click="$emit('toggle')">&times;</button>
+        </div>
 
         <!-- 
           Another way to work with v-model instead of using "modelValue"
@@ -37,16 +41,19 @@ export default {
             :assignment="assignment"
             ></assignment>
         </ul>
+
+        <slot></slot>
       </section>
   `,
   props: {
     title: String,
     assignments: Array,
+    canToggle: { type: Boolean, default: false },
   },
 
   data() {
     return {
-      currentTag: "all",
+      currentTag: "all"
     };
   },
 
