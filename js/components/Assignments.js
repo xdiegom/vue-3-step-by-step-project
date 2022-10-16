@@ -16,9 +16,9 @@ export default {
   data() {
     return {
       assignments: [
-        { name: "Learn Vue 3", complete: false, id: 1 },
-        { name: "Read chapter 4", complete: false, id: 2 },
-        { name: "Turn in homework", complete: false, id: 3 },
+        { name: "Learn Vue 3", tag: "math",  complete: false, id: 1 },
+        { name: "Read chapter 4", tag: "science", complete: false, id: 2 },
+        { name: "Turn in homework", tag: "reading", complete: false, id: 3 },
       ],
     };
   },
