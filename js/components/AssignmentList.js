@@ -1,18 +1,20 @@
 import Assignment from "./Assignment.js";
 import AssignmentTags from "./AssignmentTags.js";
+import Panel from "./Panel.js";
 
 export default {
-  components: { Assignment, AssignmentTags },
+  components: { Assignment, AssignmentTags, Panel },
   template: `
-    <section v-if="assignments.length">
+    <Panel v-if="assignments.length">
+      <template #heading>
         <div class="flex justify-between items-start">
-          <h2 class="font-bold mb-2"> 
-            {{ title }} 
+          <div>
+            {{ title }}
             <span> ({{ assignments.length }}) </span>
-          </h2>
-
+          </div>
           <button v-show="canToggle" @click="$emit('toggle')">&times;</button>
         </div>
+      </template>
 
         <!-- 
           Another way to work with v-model instead of using "modelValue"
@@ -34,7 +36,7 @@ export default {
           :initial-tags="assignments.map(a => a.tag)">
         </assignment-tags>
 
-        <ul class="border border-gray-600 divide-y divide-gray-600">
+        <ul class="border border-gray-600 divide-y divide-gray-600 mb-4 w-60">
           <assignment 
             v-for="assignment in filteredAssignments" 
             :key="assignment.id"
@@ -43,7 +45,7 @@ export default {
         </ul>
 
         <slot></slot>
-      </section>
+      </Panel>
   `,
   props: {
     title: String,
